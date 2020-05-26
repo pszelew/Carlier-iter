@@ -83,7 +83,7 @@ int Carlier_var::check_time_stop_working(int k)
 
 int Carlier_var::schrage_normal() 
 {
-	//chcia³bym otrzymaæ dane w vectorze
+	//chciaÅ‚bym otrzymaÄ‡ dane w vectorze
 	vector<zadanie> N;
 	for (int i = 0; i < n; i++)
 	{
@@ -164,7 +164,7 @@ int Carlier_var::schrage_normal()
 
 int Carlier_var::schrage_inter()
 {
-	//chcia³bym otrzymaæ dane w vectorze
+	//chciaÅ‚bym otrzymaÄ‡ dane w vectorze
 	vector<zadanie> N;
 	for (int i = 0; i < n; i++)
 	{
@@ -660,163 +660,3 @@ int Carlier_alg::do_carlier_nostrat()
 }
 
 
-//rekurencyjna wersja
-
-/*
-int Carlier::do_carlier()
-{
-	//cout << flag << endl<< endl;
-	++flag;
-	int schr_lenght = this->schrage_normal();
-
-	c = -1;
-
-	if (schr_lenght < UB)
-	{
-		UB = schr_lenght;
-
-		//przekopiowanie zadania optymalnego
-		
-		for (int i = 0; i < n; i++)
-		{
-			best[i] = schrage[i];
-		}
-	}
-
-
-	//znalezeienie zadania b. Zacznijmy szukac od konca uszeregowania. Jesli czas zakonczenia go na maszynie + jego q== Cmax
-	int c_max = check_time();
-
-	for (int j = n; j > 0; --j)
-	{
-		if (check_time_stop_working(j) + schrage[j - 1].Q == c_max)
-		{
-			b = j - 1;
-			break;
-		}
-	}
-
-	
-	//znalezienie zadania a. Zacznijmy szukac go od poczatku
-	for (int j = 0; j < n; ++j)
-	{
-		int temp_1 = 0;
-
-		for (int s = j; s <= b; ++s)
-		{
-			temp_1 += schrage[s].P;
-		}
-
-		int temp_final = schrage[j].R + temp_1 + schrage[b].Q;
-
-		if (temp_final == c_max)
-		{
-			a = j;
-			break;
-		}
-
-	}
-	//znalezienie zadania c
-	for (int j = b; j >= a; --j)
-	{
-		if (schrage[j].Q < schrage[b].Q)
-		{
-			c = j;
-			break;
-		}
-	}
-	//cout << "Zadanie a: " << schrage[a].id << " b: " << schrage[b].id << " c: " << schrage[c].id << endl;
-	//jesli nie ma zadania krytycznego
-	if (c == -1)
-	{
-		return UB;
-	}
-
-	//wyznaczenie R bloku K
-	r_k = INT_MAX;
-	for (int j = c + 1; j <= b; ++j)
-	{
-		if (schrage[j].R < r_k)
-		{
-			r_k = schrage[j].R;
-		}
-	}
-	//wyznaczenie Q bloku K
-	q_k = INT_MAX;
-	for (int j = c + 1; j <= b; ++j)
-	{
-		if (schrage[j].Q < q_k)
-		{
-			q_k = schrage[j].Q;
-		}
-	}
-	p_k = 0;
-	//wyznaczenie p bloku K
-	for (int j = c + 1; j <= b; ++j)
-	{
-		p_k += schrage[j].P;
-	}
-
-
-	//aktualizacja zadania krytycznego
-	
-	int num_backup_r = schrage[c].id;
-	int r_backup = schrage[c].R;
-
-	schrage[c].R = max(schrage[c].R, r_k + p_k);
-
-	
-
-	LB = schrage_inter();
-	
-	if (LB < UB)
-	{
-		//cout << "Wyrzucam: " << schrage[c].id << "na poczatek bloku"<< endl;
-		//uruchamiamy carliera dla zmienionych danych i sprawdzamy czy udalo sie zrobic lepiej
-		int temp = do_carlier();
-		
-		if (temp < UB)
-		{
-			UB = temp;
-		}
-
-	}
-	//odtworzenie r
-	int num_backup_q = -1;
-	int q_backup = -1;
-	for (int i = 0; i < n; i++)
-	{
-		if (num_backup_r == schrage[i].id)
-		{
-			schrage[i].R = r_backup;
-			num_backup_q = schrage[i].id;
-			q_backup = schrage[i].Q;
-			schrage[i].Q = max(schrage[i].Q, q_k + p_k);
-		}
-	}
-
-	//aktualizacja zadnia krytycznego
-
-
-	//cout << "Dla zadania: " << num_backup_q << " zmieniam z Q " << q_backup << " do " << schrage[c].Q << endl;
-
-
-	LB = schrage_inter();
-	if (LB < UB)
-	{
-		UB = do_carlier();
-	}
-
-	//odtworzenie q
-	for (int i = 0; i < n; i++)
-	{
-		if (num_backup_r == schrage[i].id)
-		{
-			//cout << "Dla zadania: " << schrage[i].id << " wracam z Q " << schrage[i].Q << " do " << q_backup << endl;
-			schrage[i].Q = q_backup;
-		}
-	}
-
-	return UB;
-}
-*/
